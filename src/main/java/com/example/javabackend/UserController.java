@@ -25,12 +25,6 @@ public class UserController {
         return userService.findAll();
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse create(@Valid @RequestBody UserRequest request) {
-        return userService.create(request);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> findById(@PathVariable Long id) {
         Optional<UserResponse> user = userService.findById(id);

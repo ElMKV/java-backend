@@ -25,30 +25,6 @@ class UserControllerTest {
     @MockitoBean
     private UserService userService;
 
-    @Test
-    void createReturnsCreatedUser() throws Exception {
-        UserRequest request = new UserRequest("Zarina", "zarina@example.com", 26, false);
-        UserResponse response = new UserResponse(1L, "Zarina", "zarina@example.com", 26, false);
-
-        when(userService.create(request)).thenReturn(response);
-
-        mockMvc.perform(post("/users")
-                        .contentType(APPLICATION_JSON)
-                        .content("""
-                                {
-                                  "name": "Zarina",
-                                  "age": 26,
-                                  "email": "zarina@example.com",
-                                  "isMale": false
-                                }
-                                """))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Zarina"))
-                .andExpect(jsonPath("$.email").value("zarina@example.com"))
-                .andExpect(jsonPath("$.age").value(26))
-                .andExpect(jsonPath("$.isMale").value(false));
-    }
 
     @Test
     void createReturnsBadRequestWhenRequestIsInvalid() throws Exception {
@@ -70,29 +46,6 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.errors.age").exists())
                 .andExpect(jsonPath("$.errors.isMale").exists());
         verifyNoInteractions(userService);
-    }
-
-    @Test
-    void createReturnsConflicts() throws Exception  {
-        UserRequest request = new UserRequest("Zarina", "zarina@example.com", 26, false);
-
-
-        when(userService.create(request))
-                .thenThrow(new DataIntegrityViolationException("duplicate email"));
-
-        mockMvc.perform(post("/users")
-                        .contentType(APPLICATION_JSON)
-                        .content("""
-                                {
-                                  "name": "Zarina",
-                                  "age": 26,
-                                  "isMale": false,
-                                  "email" : "zarina@example.com"
-                                }
-                                """))
-                .andExpect(status().isConflict())
-                .andExpect(jsonPath("$.status").value(409))
-                .andExpect(jsonPath("$.message").value("Email уже существует"));
     }
 
 }

@@ -24,22 +24,6 @@ class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
-    @Test
-    void createSavesUserAndReturnsResponse() {
-        UserRequest request = new UserRequest("Zarina", "zarina@example.com", 26, false);
-
-        when(userRepository.save(any(User.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
-
-        UserResponse response = userService.create(request);
-
-        assertEquals("Zarina", response.name());
-        assertEquals(26, response.age());
-        assertEquals("zarina@example.com", response.email());
-        assertEquals(false, response.isMale());
-
-        verify(userRepository).save(any(User.class));
-    }
 
     @Test
     void findByIdReturnsUserResponseWhenUserExists() {

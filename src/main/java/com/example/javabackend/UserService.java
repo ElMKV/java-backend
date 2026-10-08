@@ -49,17 +49,6 @@ public class UserService {
                 .toList();
     }
 
-    public UserResponse create(UserRequest request) {
-        User user = new User();
-
-        user.setName(request.name());
-        user.setEmail(request.email());
-        user.setAge(request.age());
-        user.setIsMale(request.isMale());
-
-        return toResponse(userRepository.save(user));
-    }
-
     public UserResponse register(RegisterRequest request) {
         User user = new User();
 
