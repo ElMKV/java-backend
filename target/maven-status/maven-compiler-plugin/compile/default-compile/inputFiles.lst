@@ -1,0 +1,14 @@
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/AuthController.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/GlobalExceptionHandler.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/JavaBackendApplication.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/PasswordConfig.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/User.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/UserController.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/UserRepository.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/UserService.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/dto/ApiErrorResponse.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/dto/LoginRequest.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/dto/RegisterRequest.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/dto/UserRequest.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/dto/UserResponse.java
+/Users/ilya/IdeaProjects/java-backend/src/main/java/com/example/javabackend/dto/ValidationErrorResponse.java
