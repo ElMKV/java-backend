@@ -72,13 +72,10 @@ class UserServiceTest {
                 fakeRequest.password(),
                 fakeUser.getPasswordHash()
         )).thenReturn(true);
-
-
+        
         Optional<UserResponse> response = userService.login(fakeRequest);
 
-
         assertFalse(response.isEmpty());
-
 
         assertEquals(fakeUser.getName(), response.get().name());
         assertEquals(fakeUser.getEmail(), response.get().email());
