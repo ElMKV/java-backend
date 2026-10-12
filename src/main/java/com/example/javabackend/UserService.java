@@ -31,13 +31,22 @@ public class UserService {
             return Optional.empty();
         }
 
-
         if (passwordEncoder.matches(loginRequest.password(), user.get().getPasswordHash())) {
             return Optional.of(new AuthResponse(jwtService.generateToken(user.get().getEmail())));
         }
         return Optional.empty();
 
 
+    }
+
+    public Optional<UserResponse> findByEmail(String email) {
+
+        Optional<User> existingUser = userRepository.findByEmail(email);
+
+        if (existingUser.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(toResponse(existingUser.get()));
     }
 
     public List<UserResponse> findAll() {

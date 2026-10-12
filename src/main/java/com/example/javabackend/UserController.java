@@ -3,8 +3,8 @@ package com.example.javabackend;
 import com.example.javabackend.dto.UserRequest;
 import com.example.javabackend.dto.UserResponse;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +28,17 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> findById(@PathVariable Long id) {
         Optional<UserResponse> user = userService.findById(id);
+
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserResponse> findByEmail(Authentication authentication) {
+        Optional<UserResponse> user = userService.findByEmail(authentication.getName());
 
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
