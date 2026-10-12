@@ -1,8 +1,6 @@
 package com.example.javabackend;
 
-import com.example.javabackend.dto.LoginRequest;
-import com.example.javabackend.dto.RegisterRequest;
-import com.example.javabackend.dto.UserResponse;
+import com.example.javabackend.dto.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,22 +8,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import com.example.javabackend.dto.UserRequest;
-
 @Service
 public class UserService {
 
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
-    public Optional<UserResponse> login(LoginRequest loginRequest) {
+    public Optional<AuthResponse> login(LoginRequest loginRequest) {
 
         Optional<User> user = userRepository.findByEmail(loginRequest.email());
 
@@ -35,7 +33,7 @@ public class UserService {
 
 
         if (passwordEncoder.matches(loginRequest.password(), user.get().getPasswordHash())) {
-            return Optional.of(toResponse(user.get()));
+            return Optional.of(new AuthResponse(jwtService.generateToken(user.get().getEmail())));
         }
         return Optional.empty();
 

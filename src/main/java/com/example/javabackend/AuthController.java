@@ -1,5 +1,6 @@
 package com.example.javabackend;
 
+import com.example.javabackend.dto.AuthResponse;
 import com.example.javabackend.dto.LoginRequest;
 import com.example.javabackend.dto.RegisterRequest;
 import com.example.javabackend.dto.UserResponse;
@@ -31,8 +32,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponse> login(@Valid @RequestBody LoginRequest request) {
-        Optional<UserResponse> user = userService.login(request);
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+        Optional<AuthResponse> user = userService.login(request);
 
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
