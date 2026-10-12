@@ -32,7 +32,7 @@ public class UserService {
         }
 
         if (passwordEncoder.matches(loginRequest.password(), user.get().getPasswordHash())) {
-            return Optional.of(new AuthResponse(jwtService.generateToken(user.get().getEmail())));
+            return Optional.of(new AuthResponse(jwtService.generateToken(user.get().getEmail(), user.get().getRole())));
         }
         return Optional.empty();
 
@@ -63,6 +63,7 @@ public class UserService {
         user.setEmail(request.email());
         user.setAge(request.age());
         user.setIsMale(request.isMale());
+        user.setRole(Role.USER);
         user.setPasswordHash(passwordEncoder.encode(request.password()));
 
         return toResponse(userRepository.save(user));

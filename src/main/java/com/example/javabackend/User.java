@@ -1,11 +1,8 @@
 package com.example.javabackend;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import static jakarta.persistence.EnumType.STRING;
 
 @Entity
 @Table(name = "users")
@@ -29,6 +26,17 @@ public class User {
 
     @Column(name = "is_male", nullable = false)
     private Boolean isMale;
+
+    @Enumerated(STRING)
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public Long getId() {
         return id;
