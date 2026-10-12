@@ -1,1 +1,3 @@
+com/example/javabackend/dto/AuthResponse.class
 com/example/javabackend/JavaBackendApplication.class
+com/example/javabackend/JwtService.class
