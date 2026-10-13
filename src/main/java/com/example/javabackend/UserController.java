@@ -38,7 +38,9 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<UserResponse> findByEmail(Authentication authentication) {
-        Optional<UserResponse> user = userService.findByEmail(authentication.getName());
+       String id = authentication.getName();
+
+        Optional<UserResponse> user = userService.findById(Long.valueOf(id));
 
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
@@ -58,6 +60,24 @@ public class UserController {
         if (updatedUser.isPresent()) {
             return ResponseEntity.ok(updatedUser.get());
         }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<UserResponse> updateByEmail(
+            @Valid
+            @RequestBody UserRequest request,
+            Authentication authentication
+    ) {
+
+
+        Optional<UserResponse> updatedUser = userService.update(Long.valueOf(authentication.getName()), request);
+
+        if (updatedUser.isPresent()) {
+            return ResponseEntity.ok(updatedUser.get());
+        }
+
 
         return ResponseEntity.notFound().build();
     }

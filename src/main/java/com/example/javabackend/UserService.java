@@ -32,7 +32,7 @@ public class UserService {
         }
 
         if (passwordEncoder.matches(loginRequest.password(), user.get().getPasswordHash())) {
-            return Optional.of(new AuthResponse(jwtService.generateToken(user.get().getEmail(), user.get().getRole())));
+            return Optional.of(new AuthResponse(jwtService.generateToken(user.get().getId(), user.get().getRole())));
         }
         return Optional.empty();
 
@@ -94,6 +94,22 @@ public class UserService {
         userToUpdate.setAge(request.age());
         userToUpdate.setIsMale(request.isMale());
         return Optional.of(toResponse(userRepository.save(userToUpdate)));
+    }
+
+    public Optional<UserResponse> updateByEmail(String email, UserRequest request){
+        Optional<User> existingUser = userRepository.findByEmail(email);
+
+        if (existingUser.isEmpty()) {
+            return Optional.empty();
+        }
+
+        User userToUpdate = existingUser.get();
+        userToUpdate.setName(request.name());
+        userToUpdate.setEmail(request.email());
+        userToUpdate.setAge(request.age());
+        userToUpdate.setIsMale(request.isMale());
+        return Optional.of(toResponse(userRepository.save(userToUpdate)));
+
     }
 
     public boolean deleteById(Long id) {
