@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "//users/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 ).addFilterBefore(
                         jwtAuthenticationFilter,
